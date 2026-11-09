@@ -9,6 +9,7 @@ import { CampaignsListView } from './components/campaigns/CampaignsListView.js';
 import { OutreachHubView } from './components/outreach/OutreachHubView.js';
 import { CampaignReportsView } from './components/reports/CampaignReportsView.js';
 import { IntegrationsView } from './components/integrations/IntegrationsView.js';
+import { AIAgentStudioView } from './components/agents/AIAgentStudioView.js';
 import { ToastContainer, ToastMessage } from './components/ui/Toast.js';
 import { api } from './services/api.js';
 import {
@@ -19,6 +20,8 @@ import {
   UserProfile,
   GoogleSheetsConfig,
   LeadStatus,
+  AIAgentProfile,
+  AgentModelSettings,
 } from './types/index.js';
 
 export default function App() {
@@ -34,6 +37,16 @@ export default function App() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [activities, setActivities] = useState<ActivityLog[]>([]);
   const [sheetsConfig, setSheetsConfig] = useState<GoogleSheetsConfig>({ connected: false });
+  const [agents, setAgents] = useState<AIAgentProfile[]>([]);
+  const [agentSettings, setAgentSettings] = useState<AgentModelSettings>({
+    globalModel: 'gemini-3.8-flash',
+    activeAgentId: 'agent_apex_growth',
+    discoveryAgentId: 'agent_apex_growth',
+    websiteAnalysisAgentId: 'agent_creative_ux',
+    leadScoringAgentId: 'agent_apex_growth',
+    outreachAgentId: 'agent_apex_growth',
+    reportingAgentId: 'agent_enterprise_closer',
+  });
 
   // Loading States
   const [isLoading, setIsLoading] = useState(false);
@@ -58,13 +71,24 @@ export default function App() {
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const [userData, statsData, campsData, leadsData, actsData, sheetsData] = await Promise.all([
+      const [
+        userData,
+        statsData,
+        campsData,
+        leadsData,
+        actsData,
+        sheetsData,
+        agentsData,
+        settingsData,
+      ] = await Promise.all([
         api.getMe().catch(() => ({ user: null as any })),
         api.getDashboardStats().catch(() => null),
         api.getCampaigns().catch(() => []),
         api.getLeads().catch(() => []),
         api.getActivities().catch(() => []),
         api.getSheetsConfig().catch(() => ({ connected: false })),
+        api.getAgents().catch(() => []),
+        api.getAgentSettings().catch(() => ({ settings: null as any })),
       ]);
 
       if (userData?.user) setUser(userData.user);
@@ -73,6 +97,8 @@ export default function App() {
       setLeads(leadsData);
       setActivities(actsData);
       setSheetsConfig(sheetsData);
+      if (Array.isArray(agentsData) && agentsData.length > 0) setAgents(agentsData);
+      if (settingsData?.settings) setAgentSettings(settingsData.settings);
     } catch (err: any) {
       console.error('Failed to load application data:', err);
       showToast('error', 'Network Error', 'Failed to synchronize with server.');
@@ -134,9 +160,9 @@ export default function App() {
     }
   };
 
-  const handleGenerateOutreach = async (id: string, customPrompt?: string) => {
+  const handleGenerateOutreach = async (id: string, customPrompt?: string, agentId?: string) => {
     try {
-      const res = await api.generateOutreach(id, customPrompt);
+      const res = await api.generateOutreach(id, customPrompt, agentId);
       setLeads((prev) => prev.map((l) => (l.id === id ? res.lead : l)));
       if (selectedLead?.id === id) {
         setSelectedLead(res.lead);
@@ -147,9 +173,9 @@ export default function App() {
     }
   };
 
-  const handleReResearchLead = async (id: string) => {
+  const handleReResearchLead = async (id: string, agentId?: string) => {
     try {
-      const res = await api.reResearchLead(id);
+      const res = await api.reResearchLead(id, agentId);
       setLeads((prev) => prev.map((l) => (l.id === id ? res.lead : l)));
       if (selectedLead?.id === id) {
         setSelectedLead(res.lead);
@@ -158,6 +184,57 @@ export default function App() {
     } catch (err: any) {
       showToast('error', 'Audit Failed', err.message);
     }
+  };
+
+  // AI Agent Operations
+  const handleCreateAgent = async (newAgent: Partial<AIAgentProfile>) => {
+    try {
+      const created = await api.createAgent(newAgent);
+      setAgents((prev) => [...prev, created]);
+      showToast('success', 'Agent Created', `${created.name} is ready for deployment.`);
+    } catch (err: any) {
+      showToast('error', 'Agent Creation Failed', err.message);
+    }
+  };
+
+  const handleUpdateAgent = async (id: string, updates: Partial<AIAgentProfile>) => {
+    try {
+      const updated = await api.updateAgent(id, updates);
+      setAgents((prev) => prev.map((a) => (a.id === id ? updated : a)));
+      showToast('success', 'Agent Updated', `${updated.name} settings saved.`);
+    } catch (err: any) {
+      showToast('error', 'Update Failed', err.message);
+    }
+  };
+
+  const handleDeleteAgent = async (id: string) => {
+    try {
+      await api.deleteAgent(id);
+      setAgents((prev) => prev.filter((a) => a.id !== id));
+      showToast('info', 'Agent Removed', 'Custom agent deleted.');
+    } catch (err: any) {
+      showToast('error', 'Delete Failed', err.message);
+    }
+  };
+
+  const handleUpdateAgentSettings = async (settings: Partial<AgentModelSettings>) => {
+    try {
+      const res = await api.updateAgentSettings(settings);
+      setAgentSettings(res.settings);
+      showToast('success', 'Pipeline Matrix Updated', 'AI models and agent assignments saved.');
+    } catch (err: any) {
+      showToast('error', 'Save Failed', err.message);
+    }
+  };
+
+  const handleTestPlayground = async (payload: {
+    model: string;
+    systemPrompt: string;
+    userPrompt: string;
+    thinkingLevel?: string;
+    useSearch?: boolean;
+  }) => {
+    return await api.testAgentPlayground(payload);
   };
 
   // Campaign Operations
@@ -306,6 +383,18 @@ export default function App() {
             />
           )}
 
+          {currentTab === 'agents' && (
+            <AIAgentStudioView
+              agents={agents}
+              agentSettings={agentSettings}
+              onUpdateAgentSettings={handleUpdateAgentSettings}
+              onCreateAgent={handleCreateAgent}
+              onUpdateAgent={handleUpdateAgent}
+              onDeleteAgent={handleDeleteAgent}
+              onTestPlayground={handleTestPlayground}
+            />
+          )}
+
           {currentTab === 'reports' && (
             <CampaignReportsView
               campaigns={campaigns}
@@ -352,6 +441,7 @@ export default function App() {
         onClose={() => setIsNewCampaignOpen(false)}
         onCampaignCreated={handleCampaignCreated}
         onRunCampaign={handleRunCampaign}
+        agents={agents}
       />
 
       {/* Deep Lead Profile & Outreach Modal */}
@@ -363,6 +453,7 @@ export default function App() {
         onDeleteLead={handleDeleteLead}
         onGenerateOutreach={handleGenerateOutreach}
         onReResearch={handleReResearchLead}
+        agents={agents}
       />
     </div>
   );

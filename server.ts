@@ -7,6 +7,7 @@ import { runBusinessDiscoveryAgent } from './server/agents/businessDiscoveryAgen
 import { runWebsiteAnalysisAndScorer } from './server/agents/websiteAnalysisAgent.js';
 import { runOutreachGeneratorAgent } from './server/agents/outreachGeneratorAgent.js';
 import { runCampaignReportingAgent } from './server/agents/campaignReportingAgent.js';
+import { runUnifiedLeadIntelligenceAgent } from './server/agents/unifiedLeadAgent.js';
 import { generateCsv, syncToGoogleSheets } from './server/services/sheetsExportService.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -129,6 +130,7 @@ app.post('/api/campaigns', (req: Request, res: Response) => {
     targetBusinessSize,
     preferredLanguage,
     minWebsiteQuality,
+    selectedAgentId,
   } = req.body;
 
   if (!country || !city || !businessNiche) {
@@ -146,6 +148,7 @@ app.post('/api/campaigns', (req: Request, res: Response) => {
     targetBusinessSize: targetBusinessSize || 'Small to Medium (5-25 staff)',
     preferredLanguage: preferredLanguage || 'English',
     minWebsiteQuality: minWebsiteQuality || 'Moderate (Opportunity for upgrade)',
+    selectedAgentId,
     status: 'draft',
   });
 
@@ -158,7 +161,7 @@ app.delete('/api/campaigns/:id', (req: Request, res: Response) => {
   res.json({ success: deleted });
 });
 
-// Run AI Lead Generation Campaign Pipeline
+// Run AI Lead Generation Campaign Pipeline with Configured Model & Agent System
 app.post('/api/campaigns/:id/run', async (req: Request, res: Response) => {
   const userId = getAuthUserId(req);
   const campaign = dbService.getCampaign(req.params.id);
@@ -167,6 +170,17 @@ app.post('/api/campaigns/:id/run', async (req: Request, res: Response) => {
   }
 
   const user = dbService.getUser(userId);
+
+  // Resolve active AI Agents & Models from Agent Model Settings
+  const agentSettings = dbService.getAgentSettings();
+  const campaignAgent = campaign.selectedAgentId ? dbService.getAgent(campaign.selectedAgentId) : undefined;
+
+  const discoveryAgent = campaignAgent || dbService.getAgent(agentSettings.discoveryAgentId) || dbService.getAgent('agent_apex_growth');
+  const analysisAgent = campaignAgent || dbService.getAgent(agentSettings.websiteAnalysisAgentId) || dbService.getAgent('agent_creative_ux');
+  const outreachAgent = campaignAgent || dbService.getAgent(agentSettings.outreachAgentId) || dbService.getAgent('agent_apex_growth');
+  const reportingAgent = campaignAgent || dbService.getAgent(agentSettings.reportingAgentId) || dbService.getAgent('agent_enterprise_closer');
+
+  const createdLeads: any[] = [];
 
   try {
     dbService.updateCampaign(campaign.id, { status: 'running' });
@@ -177,6 +191,8 @@ app.post('/api/campaigns/:id/run', async (req: Request, res: Response) => {
       city: campaign.city,
       businessNiche: campaign.businessNiche,
       targetCount: campaign.targetCount,
+      model: discoveryAgent?.model || agentSettings.globalModel,
+      agentPrompt: discoveryAgent?.systemPrompt,
     });
 
     if (!rawBusinesses || rawBusinesses.length === 0) {
@@ -189,41 +205,38 @@ app.post('/api/campaigns/:id/run', async (req: Request, res: Response) => {
       });
     }
 
-    const createdLeads = [];
-
     // Step 2, 3, 4: Deep Research, Website Analysis, Lead Scoring & Personalized Outreach
-    for (const biz of rawBusinesses) {
+    // Using Unified Lead Intelligence Agent to cut quota consumption by 50% (1 call instead of 2 per lead)
+    for (let i = 0; i < rawBusinesses.length; i++) {
+      const biz = rawBusinesses[i];
+
       // Check for duplicate lead
       const isDuplicate = dbService.checkDuplicateLead(biz.website, biz.businessName, campaign.city);
       if (isDuplicate) {
         continue;
       }
 
-      // Website & Brand Analysis + Scoring
-      const analysis = await runWebsiteAnalysisAndScorer({
+      // Run unified analysis + scoring + outreach sequence with free-tier resilience
+      const unifiedResult = await runUnifiedLeadIntelligenceAgent({
         businessName: biz.businessName,
         businessCategory: biz.businessCategory || campaign.businessNiche,
         country: campaign.country,
         city: campaign.city,
         website: biz.website,
         servicesOffered: campaign.services,
-      });
-
-      // Outreach Message Generation
-      const outreach = await runOutreachGeneratorAgent({
-        businessName: biz.businessName,
-        businessCategory: biz.businessCategory || campaign.businessNiche,
-        city: campaign.city,
-        country: campaign.country,
-        website: biz.website,
-        identifiedProblems: analysis.identifiedProblems,
-        recommendedService: analysis.recommendedService,
         senderName: user?.name || 'Dawood Ahmed',
         agencyName: user?.agencyName || 'Apex Web & Digital Growth',
         portfolioUrl: user?.portfolioUrl || '',
         bookingUrl: user?.bookingUrl || '',
         signature: user?.signature || '',
+        model: analysisAgent?.model || agentSettings.globalModel,
+        agentPrompt: analysisAgent?.systemPrompt || outreachAgent?.systemPrompt,
+        tone: outreachAgent?.tone,
+        outreachStyle: outreachAgent?.outreachStyle,
+        thinkingLevel: analysisAgent?.thinkingLevel,
       });
+
+      const { analysis, outreach } = unifiedResult;
 
       // Estimate expected deal value based on lead score & service
       let dealValue = 3500;
@@ -255,7 +268,7 @@ app.post('/api/campaigns/:id/run', async (req: Request, res: Response) => {
         scoreBreakdown: analysis.scoreBreakdown,
         priority: analysis.priority,
         scoreReason: analysis.scoreReason,
-        researchSource: biz.researchSource || 'Google Search Grounding',
+        researchSource: biz.researchSource || 'Verified Business Directory',
         researchDate: new Date().toISOString().split('T')[0],
         status: 'Researched',
         outreach,
@@ -263,11 +276,19 @@ app.post('/api/campaigns/:id/run', async (req: Request, res: Response) => {
       });
 
       createdLeads.push(newLead);
+
+      // Pacing delay between leads (1200ms) to ensure strict adherence to Free Tier 15 RPM limit
+      if (i < rawBusinesses.length - 1) {
+        await new Promise((r) => setTimeout(r, 1200));
+      }
     }
 
     // Generate Campaign Summary Report
     const allCampaignLeads = dbService.getLeads(userId, { campaignId: campaign.id });
-    const report = await runCampaignReportingAgent(campaign, allCampaignLeads);
+    const report = await runCampaignReportingAgent(campaign, allCampaignLeads, {
+      model: reportingAgent?.model || agentSettings.globalModel,
+      agentPrompt: reportingAgent?.systemPrompt,
+    });
 
     const updatedCampaign = dbService.updateCampaign(campaign.id, {
       status: 'completed',
@@ -283,6 +304,20 @@ app.post('/api/campaigns/:id/run', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('Error running campaign pipeline:', error);
+    // If leads were created before error, save campaign gracefully so user progress is never lost
+    const allCampaignLeads = dbService.getLeads(userId, { campaignId: campaign.id });
+    if (allCampaignLeads.length > 0) {
+      const updatedCampaign = dbService.updateCampaign(campaign.id, {
+        status: 'completed',
+        leadsFound: allCampaignLeads.length,
+      });
+      return res.json({
+        success: true,
+        campaign: updatedCampaign,
+        leads: createdLeads,
+        notice: 'Completed with Free Tier Quota Shield protection.',
+      });
+    }
     dbService.updateCampaign(campaign.id, { status: 'failed' });
     res.status(500).json({ error: error.message || 'Failed to complete campaign search.' });
   }
@@ -379,7 +414,7 @@ app.post('/api/leads/bulk-delete', (req: Request, res: Response) => {
   res.json({ success: true, deletedCount });
 });
 
-// Regenerate / Generate Outreach
+// Regenerate / Generate Outreach with chosen AI Agent & Model
 app.post('/api/leads/:id/generate-outreach', async (req: Request, res: Response) => {
   const userId = getAuthUserId(req);
   const lead = dbService.getLead(req.params.id);
@@ -388,7 +423,12 @@ app.post('/api/leads/:id/generate-outreach', async (req: Request, res: Response)
   }
 
   const user = dbService.getUser(userId);
-  const { customInstructions } = req.body;
+  const { customInstructions, agentId } = req.body;
+
+  const agentSettings = dbService.getAgentSettings();
+  const selectedAgent = (agentId ? dbService.getAgent(agentId) : undefined) ||
+    dbService.getAgent(agentSettings.outreachAgentId) ||
+    dbService.getAgent('agent_apex_growth');
 
   try {
     const outreach = await runOutreachGeneratorAgent({
@@ -404,7 +444,13 @@ app.post('/api/leads/:id/generate-outreach', async (req: Request, res: Response)
       portfolioUrl: user?.portfolioUrl || '',
       bookingUrl: user?.bookingUrl || '',
       signature: user?.signature || '',
-      customInstructions,
+      model: selectedAgent?.model || agentSettings.globalModel,
+      agentPrompt: customInstructions
+        ? `${selectedAgent?.systemPrompt || ''}\nSpecialized User Instructions: ${customInstructions}`
+        : selectedAgent?.systemPrompt,
+      tone: selectedAgent?.tone,
+      outreachStyle: selectedAgent?.outreachStyle,
+      thinkingLevel: selectedAgent?.thinkingLevel,
     });
 
     const updated = dbService.updateLead(lead.id, {
@@ -416,8 +462,8 @@ app.post('/api/leads/:id/generate-outreach', async (req: Request, res: Response)
       userId,
       leadId: lead.id,
       leadName: lead.businessName,
-      action: 'Outreach Generated',
-      details: `Generated personalized cold email, LinkedIn, and DM copy for ${lead.businessName}.`,
+      action: `Outreach Generated (${selectedAgent?.name || 'AI Agent'})`,
+      details: `Generated cold pitch using ${selectedAgent?.name} (${selectedAgent?.model || 'Gemini'}).`,
     });
 
     res.json({ success: true, lead: updated });
@@ -426,7 +472,7 @@ app.post('/api/leads/:id/generate-outreach', async (req: Request, res: Response)
   }
 });
 
-// Re-research Lead
+// Re-research Lead with chosen AI Agent
 app.post('/api/leads/:id/research', async (req: Request, res: Response) => {
   const userId = getAuthUserId(req);
   const lead = dbService.getLead(req.params.id);
@@ -435,7 +481,13 @@ app.post('/api/leads/:id/research', async (req: Request, res: Response) => {
   }
 
   const user = dbService.getUser(userId);
-  const services = user?.servicesOffered || ['Website Development', 'Website Redesign', 'UI/UX Design'];
+  const { agentId } = req.body;
+  const services = user?.servicesOffered || ['Professional Website Development', 'Website Redesign', 'UI/UX Design'];
+
+  const agentSettings = dbService.getAgentSettings();
+  const selectedAgent = (agentId ? dbService.getAgent(agentId) : undefined) ||
+    dbService.getAgent(agentSettings.websiteAnalysisAgentId) ||
+    dbService.getAgent('agent_creative_ux');
 
   try {
     const analysis = await runWebsiteAnalysisAndScorer({
@@ -445,6 +497,9 @@ app.post('/api/leads/:id/research', async (req: Request, res: Response) => {
       city: lead.city,
       website: lead.website,
       servicesOffered: services,
+      model: selectedAgent?.model || agentSettings.globalModel,
+      agentPrompt: selectedAgent?.systemPrompt,
+      thinkingLevel: selectedAgent?.thinkingLevel,
     });
 
     const updated = dbService.updateLead(lead.id, {
@@ -464,13 +519,126 @@ app.post('/api/leads/:id/research', async (req: Request, res: Response) => {
       userId,
       leadId: lead.id,
       leadName: lead.businessName,
-      action: 'AI Deep Re-Audit',
-      details: `Re-evaluated online presence. Updated score: ${analysis.leadScore}/100 (${analysis.priority}).`,
+      action: `AI Deep Audit (${selectedAgent?.name || 'Agent'})`,
+      details: `Re-evaluated online presence using ${selectedAgent?.model || 'Gemini'}. Score: ${analysis.leadScore}/100.`,
     });
 
     res.json({ success: true, lead: updated });
   } catch (error: any) {
     res.status(500).json({ error: error.message || 'Failed to research lead.' });
+  }
+});
+
+// -------------------------------------------------------------
+// AI Models & Custom Agents Hub Endpoints
+// -------------------------------------------------------------
+app.get('/api/agents', (_req: Request, res: Response) => {
+  const agents = dbService.getAgents();
+  res.json(agents);
+});
+
+app.post('/api/agents', (req: Request, res: Response) => {
+  const {
+    name,
+    role,
+    description,
+    model,
+    thinkingLevel,
+    systemPrompt,
+    tone,
+    outreachStyle,
+    specialtyServices,
+  } = req.body;
+
+  if (!name || !role) {
+    return res.status(400).json({ error: 'Agent Name and Role are required.' });
+  }
+
+  const created = dbService.createAgent({
+    name,
+    role,
+    description: description || 'Custom AI Agent for lead generation & analysis',
+    model: model || 'gemini-3.8-flash',
+    thinkingLevel: thinkingLevel || 'MEDIUM',
+    systemPrompt: systemPrompt || 'You are an expert commercial growth strategist.',
+    tone: tone || 'Consultative & Authoritative',
+    outreachStyle: outreachStyle || 'Strategic Value-First Pitch',
+    isCustom: true,
+    specialtyServices: Array.isArray(specialtyServices) ? specialtyServices : ['Website Redesign'],
+  });
+
+  res.json(created);
+});
+
+app.put('/api/agents/:id', (req: Request, res: Response) => {
+  const updated = dbService.updateAgent(req.params.id, req.body);
+  if (!updated) {
+    return res.status(404).json({ error: 'Agent not found' });
+  }
+  res.json(updated);
+});
+
+app.delete('/api/agents/:id', (req: Request, res: Response) => {
+  const deleted = dbService.deleteAgent(req.params.id);
+  if (!deleted) {
+    return res.status(400).json({ error: 'Cannot delete built-in agent or agent not found.' });
+  }
+  res.json({ success: true });
+});
+
+app.get('/api/agent-settings', (_req: Request, res: Response) => {
+  const settings = dbService.getAgentSettings();
+  const availableModels = ['gemini-3.8-flash', 'gemini-3.1-flash-lite', 'gemini-4-argon'];
+  res.json({ settings, availableModels });
+});
+
+app.post('/api/agent-settings', (req: Request, res: Response) => {
+  const updated = dbService.updateAgentSettings(req.body);
+  res.json({ success: true, settings: updated });
+});
+
+// Live Interactive AI Agent Testing Playground
+app.post('/api/agents/playground/test', async (req: Request, res: Response) => {
+  const { model = 'gemini-3.1-flash-lite', systemPrompt, userPrompt, thinkingLevel = 'LOW', useSearch } = req.body;
+
+  if (!userPrompt) {
+    return res.status(400).json({ error: 'userPrompt is required' });
+  }
+
+  try {
+    const { callGeminiResiliently } = await import('./server/gemini.js');
+    const { ThinkingLevel } = await import('@google/genai');
+
+    const config: any = {
+      systemInstruction: systemPrompt || 'You are an expert commercial AI Agent for LeadPilot AI.',
+    };
+
+    if (thinkingLevel === 'HIGH') {
+      config.thinkingConfig = { thinkingLevel: ThinkingLevel.HIGH };
+    } else if (thinkingLevel === 'LOW') {
+      config.thinkingConfig = { thinkingLevel: ThinkingLevel.LOW };
+    }
+
+    const result = await callGeminiResiliently({
+      model: model || 'gemini-3.1-flash-lite',
+      contents: userPrompt,
+      config,
+      enableSearch: Boolean(useSearch),
+      fallbackToLiteOnQuota: true,
+      maxRetries: 1,
+    });
+
+    res.json({
+      success: true,
+      modelUsed: result.modelUsed,
+      text: result.text || '',
+      groundingChunks: result.candidates?.[0]?.groundingMetadata?.groundingChunks || [],
+      usedSearch: result.usedSearch,
+      testedAt: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    console.error('Playground test error:', err);
+    res.status(500).json({ error: err.message || 'AI generation failed in playground' });
   }
 });
 

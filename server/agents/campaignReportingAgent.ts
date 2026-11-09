@@ -1,10 +1,14 @@
-import { ai, GEMINI_MODEL } from '../gemini.js';
+import { callGeminiResiliently, FREE_TIER_MODEL } from '../gemini.js';
 import { Campaign, Lead, CampaignReport } from '../../src/types/index.js';
 
 export async function runCampaignReportingAgent(
   campaign: Campaign,
-  leads: Lead[]
+  leads: Lead[],
+  options?: { model?: string; agentPrompt?: string }
 ): Promise<CampaignReport> {
+  const modelToUse = options?.model || FREE_TIER_MODEL;
+  const agentPrompt = options?.agentPrompt;
+
   const totalBusinessesResearched = Math.max(campaign.targetCount, leads.length);
   const successfullyIdentifiedLeads = leads.length;
   const leadsWithWebsites = leads.filter((l) => l.website && l.website !== 'Not Available').length;
@@ -35,6 +39,7 @@ export async function runCampaignReportingAgent(
 
   // Use Gemini to synthesize executive strategic advice & next steps for the freelancer / agency based on the actual leads
   const prompt = `You are a Commercial Agency Director and Growth Strategist.
+${agentPrompt ? `AI AGENT STRATEGIC PERSONA:\n${agentPrompt}\n` : ''}
 Review the actual campaign metrics below and generate 4 high-leverage "recommendedNextSteps" for the web development & marketing agency to convert these leads.
 
 CAMPAIGN DETAILS:
@@ -55,23 +60,26 @@ Return strictly a valid JSON array of 4 string recommendations. Each recommendat
   ];
 
   try {
-    const response = await ai.models.generateContent({
-      model: GEMINI_MODEL,
+    const result = await callGeminiResiliently({
+      model: modelToUse,
       contents: prompt,
       config: {
         responseMimeType: 'application/json',
       },
+      enableSearch: false,
+      fallbackToLiteOnQuota: true,
+      maxRetries: 1,
     });
 
-    const parsed = JSON.parse(response.text || '[]');
+    const parsed = JSON.parse(result.text || '[]');
     if (Array.isArray(parsed) && parsed.length > 0) {
-      recommendedNextSteps = parsed;
+      recommendedNextSteps = parsed.slice(0, 4);
     }
   } catch (err) {
-    console.warn('Using default next steps in reporting agent:', err);
+    console.warn('[Campaign Reporting Fallback] Using default high-leverage steps:', err);
   }
 
-  const report: CampaignReport = {
+  return {
     campaignId: campaign.id,
     generatedAt: new Date().toISOString(),
     totalBusinessesResearched,
@@ -83,17 +91,8 @@ Return strictly a valid JSON array of 4 string recommendations. Each recommendat
     interestedProspects,
     dealsWon,
     totalPotentialDealValue,
-    mostCommonProblems:
-      topProblems.length > 0
-        ? topProblems
-        : [
-            { problem: 'Mobile responsiveness and slow portfolio load speeds', count: 4 },
-            { problem: 'Lack of interactive inquiry / consultation booking funnels', count: 3 },
-            { problem: 'Outdated visual hierarchy and weak typography contrast', count: 2 },
-          ],
+    mostCommonProblems: topProblems,
     bestPerformingNiche: campaign.businessNiche,
     recommendedNextSteps,
   };
-
-  return report;
 }

@@ -12,12 +12,15 @@ import {
   ChevronRight,
   LogOut,
   ShieldCheck,
+  Bot,
+  Cpu,
 } from 'lucide-react';
 import { UserProfile } from '../../types/index.js';
 
 export type NavTab =
   | 'dashboard'
   | 'campaigns'
+  | 'agents'
   | 'crm'
   | 'outreach'
   | 'reports'
@@ -44,6 +47,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const navItems: { id: NavTab; label: string; icon: React.ReactNode; badge?: string }[] = [
     { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
     { id: 'campaigns', label: 'AI Campaigns', icon: <Compass className="w-5 h-5" /> },
+    { id: 'agents', label: 'AI Agent Studio', icon: <Bot className="w-5 h-5" />, badge: 'Multi-Model' },
     { id: 'crm', label: 'Lead CRM', icon: <Users className="w-5 h-5" /> },
     { id: 'outreach', label: 'Outreach Hub', icon: <Send className="w-5 h-5" /> },
     { id: 'reports', label: 'Intelligence Reports', icon: <FileBarChart2 className="w-5 h-5" /> },

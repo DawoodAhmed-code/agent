@@ -33,6 +33,8 @@ export const Header: React.FC<HeaderProps> = ({
         return { title: 'Executive Dashboard', subtitle: 'Live lead intelligence & pipeline metrics' };
       case 'campaigns':
         return { title: 'AI Business Discovery Campaigns', subtitle: 'Grounding search across international cities' };
+      case 'agents':
+        return { title: 'AI Agent Studio & Models', subtitle: 'Deploy custom AI agents & multi-model pipeline routing' };
       case 'crm':
         return { title: 'Lead Management CRM', subtitle: 'Detailed scoring, pipeline status & deals' };
       case 'outreach':

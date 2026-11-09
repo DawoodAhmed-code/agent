@@ -84,6 +84,7 @@ export interface Campaign {
   minWebsiteQuality: string;
   status: 'draft' | 'running' | 'completed' | 'failed';
   leadsFound: number;
+  selectedAgentId?: string;
   createdAt: string;
   updatedAt: string;
   report?: CampaignReport;
@@ -146,4 +147,34 @@ export interface GoogleSheetsConfig {
   sheetName?: string;
   connected: boolean;
   lastSyncedAt?: string;
+}
+
+export type AIModelName = 'gemini-3.8-flash' | 'gemini-3.1-flash-lite' | 'gemini-4-argon';
+
+export type ThinkingLevelSetting = 'LOW' | 'MEDIUM' | 'HIGH';
+
+export interface AIAgentProfile {
+  id: string;
+  name: string;
+  role: string;
+  description: string;
+  model: AIModelName;
+  thinkingLevel: ThinkingLevelSetting;
+  systemPrompt: string;
+  tone: string;
+  outreachStyle: string;
+  isCustom: boolean;
+  isDefault?: boolean;
+  specialtyServices: ServiceType[];
+  createdAt: string;
+}
+
+export interface AgentModelSettings {
+  globalModel: AIModelName;
+  activeAgentId: string;
+  discoveryAgentId: string;
+  websiteAnalysisAgentId: string;
+  leadScoringAgentId: string;
+  outreachAgentId: string;
+  reportingAgentId: string;
 }

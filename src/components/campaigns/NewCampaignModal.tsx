@@ -14,12 +14,15 @@ import {
   CheckCircle2,
   AlertCircle,
   HelpCircle,
+  Bot,
+  Cpu,
 } from 'lucide-react';
-import { ServiceType, Campaign } from '../../types/index.js';
+import { ServiceType, Campaign, AIAgentProfile } from '../../types/index.js';
 
 interface NewCampaignModalProps {
   isOpen: boolean;
   onClose: () => void;
+  agents: AIAgentProfile[];
   onCampaignCreated: (campaign: Campaign, newLeadsCount: number) => void;
   onRunCampaign: (campaignId: string) => Promise<{ success: boolean; leads: any[]; campaign: Campaign }>;
 }
@@ -60,6 +63,7 @@ const PRESET_CITIES = [
 export const NewCampaignModal: React.FC<NewCampaignModalProps> = ({
   isOpen,
   onClose,
+  agents,
   onCampaignCreated,
   onRunCampaign,
 }) => {
@@ -73,6 +77,7 @@ export const NewCampaignModal: React.FC<NewCampaignModalProps> = ({
     'Brand Advertising',
     'UI/UX Design',
   ]);
+  const [selectedAgentId, setSelectedAgentId] = useState<string>(agents[0]?.id || 'agent_apex_growth');
   const [targetBusinessSize, setTargetBusinessSize] = useState('Small to Medium (5-25 staff)');
   const [preferredLanguage, setPreferredLanguage] = useState('English');
   const [minWebsiteQuality, setMinWebsiteQuality] = useState('Moderate (Opportunity for upgrade)');
@@ -120,6 +125,7 @@ export const NewCampaignModal: React.FC<NewCampaignModalProps> = ({
           targetBusinessSize,
           preferredLanguage,
           minWebsiteQuality,
+          selectedAgentId,
         }),
       });
 
@@ -334,6 +340,33 @@ export const NewCampaignModal: React.FC<NewCampaignModalProps> = ({
               </div>
             </div>
 
+            {/* AI Agent & Model Selection */}
+            <div className="p-4 rounded-xl bg-slate-950 border border-indigo-500/30 space-y-2">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-bold text-white flex items-center gap-1.5">
+                  <Bot className="w-4 h-4 text-indigo-400" />
+                  Deployed AI Agent & Intelligence Model
+                </label>
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-semibold text-emerald-400">
+                  🛡️ Free Tier Quota Shield Active
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-400">
+                Select which AI Agent persona leads this campaign. Free Tier Quota Shield prevents 429 rate limit errors with automated pacing & fallback.
+              </p>
+              <select
+                value={selectedAgentId}
+                onChange={(e) => setSelectedAgentId(e.target.value)}
+                className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-500"
+              >
+                {agents.map((a) => (
+                  <option key={a.id} value={a.id}>
+                    {a.name} — Model: {a.model} ({a.tone})
+                  </option>
+                ))}
+              </select>
+            </div>
+
             {/* Services to Offer */}
             <div className="space-y-2">
               <label className="text-xs font-semibold text-slate-300 flex items-center justify-between">
@@ -382,8 +415,9 @@ export const NewCampaignModal: React.FC<NewCampaignModalProps> = ({
                   onChange={(e) => setTargetCount(Number(e.target.value))}
                   className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-indigo-500"
                 >
-                  <option value={5}>5 Leads (Fast preview)</option>
-                  <option value={10}>10 Leads (Recommended)</option>
+                  <option value={3}>3 Leads (Fast preview)</option>
+                  <option value={5}>5 Leads (Recommended for Free Tier)</option>
+                  <option value={10}>10 Leads (Extended Batch)</option>
                   <option value={15}>15 Leads (Comprehensive)</option>
                 </select>
               </div>

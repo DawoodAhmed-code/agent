@@ -9,7 +9,10 @@ import {
   DashboardStats,
   LeadStatus,
   Priority,
-  GoogleSheetsConfig
+  GoogleSheetsConfig,
+  AIAgentProfile,
+  AgentModelSettings,
+  AIModelName
 } from '../src/types/index.js';
 
 interface DatabaseSchema {
@@ -17,6 +20,8 @@ interface DatabaseSchema {
   campaigns: Campaign[];
   leads: Lead[];
   activities: ActivityLog[];
+  agents: AIAgentProfile[];
+  agentSettings: AgentModelSettings;
   sheetsConfig: GoogleSheetsConfig;
   supabaseConfig?: {
     url?: string;
@@ -24,6 +29,90 @@ interface DatabaseSchema {
     enabled: boolean;
   };
 }
+
+export const DEFAULT_AGENTS: AIAgentProfile[] = [
+  {
+    id: 'agent_apex_growth',
+    name: 'Apex Strategic Growth Director',
+    role: 'Commercial Web & Agency Principal',
+    description: 'Expert digital agency strategist. Dissects mobile conversion bottlenecks, uncompressed hero media, and friction in consultation funnels to propose lucrative redesign retainers.',
+    model: 'gemini-3.8-flash',
+    thinkingLevel: 'MEDIUM',
+    systemPrompt: 'You are an elite Digital Agency Growth Director. Focus on high-impact conversion friction, mobile responsiveness, and client acquisition funnels. Write authoritative, respectful, and value-driven messages.',
+    tone: 'Consultative & Authoritative',
+    outreachStyle: 'Strategic Value-First Pitch',
+    isCustom: false,
+    isDefault: true,
+    specialtyServices: ['Website Redesign', 'Professional Website Development', 'UI/UX Design'],
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 'agent_creative_ux',
+    name: 'Creative UI/UX & Aesthetic Critic',
+    role: 'Award-Winning Digital Product Designer',
+    description: 'Focuses on visual hierarchy, typography contrast, brand aesthetic cohesion, layout rhythm, and interactive project showcases for design-conscious clients.',
+    model: 'gemini-3.8-flash',
+    thinkingLevel: 'MEDIUM',
+    systemPrompt: 'You are a world-class UI/UX Designer and Brand Critic. Scrutinize visual polish, typography contrast, portfolio presentation fluidity, and brand elegance.',
+    tone: 'Design-Forward & Sophisticated',
+    outreachStyle: 'Visual Audit & Creative Mockup',
+    isCustom: false,
+    specialtyServices: ['UI/UX Design', 'Business Branding', 'Website Redesign'],
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 'agent_enterprise_closer',
+    name: 'Enterprise B2B Closer',
+    role: 'Corporate Acquisition & Tender Strategist',
+    description: 'Targets established enterprises, commercial builders, and legal practices. Emphasizes lost procurement bids, developer credibility, and high-ticket trust factors.',
+    model: 'gemini-3.8-flash',
+    thinkingLevel: 'HIGH',
+    systemPrompt: 'You are a Senior Corporate B2B Account Executive. Focus on institutional credibility, enterprise compliance, RFP competitiveness, and revenue impact.',
+    tone: 'Executive, Concise & ROI-Driven',
+    outreachStyle: 'High-Ticket Commercial Proposition',
+    isCustom: false,
+    specialtyServices: ['Professional Website Development', 'Brand Advertising', 'Digital Marketing'],
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 'agent_speed_tech',
+    name: 'Speed, SEO & Tech Auditor',
+    role: 'Full-Stack Performance Engineer',
+    description: 'Analyzes Core Web Vitals, page weight, mobile viewport lag, schema markup, and organic search ranking gaps.',
+    model: 'gemini-3.1-flash-lite',
+    thinkingLevel: 'LOW',
+    systemPrompt: 'You are a Senior Web Performance and Technical SEO Specialist. Identify slow mobile load times, uncompressed assets, missing meta structures, and measurable speed fixes.',
+    tone: 'Analytical, Metric-Driven & Direct',
+    outreachStyle: 'Technical Speed & SEO Diagnostic',
+    isCustom: false,
+    specialtyServices: ['Professional Website Development', 'Website Redesign', 'Digital Marketing'],
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 'agent_local_scout',
+    name: 'Local Business & Map Ranker',
+    role: 'Local Commercial Growth Specialist',
+    description: 'Specializes in local service providers, clinics, restaurants, and contractors. Focuses on local search ranking, Google Maps, instant phone tap-to-call, and local lead funnels.',
+    model: 'gemini-3.8-flash',
+    thinkingLevel: 'MEDIUM',
+    systemPrompt: 'You are a Local SEO and Conversion Strategist. Focus on phone lead generation, local Google visibility, and customer reviews.',
+    tone: 'Friendly, Accessible & Direct',
+    outreachStyle: 'Local Growth & Consultation Audit',
+    isCustom: false,
+    specialtyServices: ['Brand Advertising', 'Digital Marketing', 'Website Redesign'],
+    createdAt: new Date().toISOString(),
+  },
+];
+
+export const DEFAULT_AGENT_SETTINGS: AgentModelSettings = {
+  globalModel: 'gemini-3.1-flash-lite',
+  activeAgentId: 'agent_apex_growth',
+  discoveryAgentId: 'agent_apex_growth',
+  websiteAnalysisAgentId: 'agent_creative_ux',
+  leadScoringAgentId: 'agent_apex_growth',
+  outreachAgentId: 'agent_apex_growth',
+  reportingAgentId: 'agent_enterprise_closer',
+};
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const DB_FILE = path.resolve(DATA_DIR, 'leadpilot.json');
@@ -34,6 +123,8 @@ let db: DatabaseSchema = {
   campaigns: [],
   leads: [],
   activities: [],
+  agents: [...DEFAULT_AGENTS],
+  agentSettings: { ...DEFAULT_AGENT_SETTINGS },
   sheetsConfig: {
     connected: false,
   },
@@ -54,6 +145,12 @@ function loadDatabase() {
     try {
       const content = fs.readFileSync(DB_FILE, 'utf-8');
       db = JSON.parse(content);
+      if (!Array.isArray(db.agents) || db.agents.length === 0) {
+        db.agents = [...DEFAULT_AGENTS];
+      }
+      if (!db.agentSettings) {
+        db.agentSettings = { ...DEFAULT_AGENT_SETTINGS };
+      }
     } catch (err) {
       console.error('Failed to parse database file, initializing default:', err);
       seedInitialData();
@@ -446,6 +543,8 @@ function seedInitialData() {
     campaigns: [defaultCampaign],
     leads: initialLeads,
     activities: initialActivities,
+    agents: [...DEFAULT_AGENTS],
+    agentSettings: { ...DEFAULT_AGENT_SETTINGS },
     sheetsConfig: {
       connected: false,
     },
@@ -874,5 +973,72 @@ export const dbService = {
     db.supabaseConfig = config;
     saveDatabase();
     return db.supabaseConfig;
+  },
+
+  // AI Agents & Model Systems
+  getAgents(): AIAgentProfile[] {
+    if (!Array.isArray(db.agents) || db.agents.length === 0) {
+      db.agents = [...DEFAULT_AGENTS];
+      saveDatabase();
+    }
+    return db.agents;
+  },
+
+  getAgent(id: string): AIAgentProfile | undefined {
+    return this.getAgents().find((a) => a.id === id);
+  },
+
+  createAgent(agent: Omit<AIAgentProfile, 'id' | 'createdAt'>): AIAgentProfile {
+    const newAgent: AIAgentProfile = {
+      ...agent,
+      id: 'agent_' + crypto.randomUUID().slice(0, 8),
+      createdAt: new Date().toISOString(),
+    };
+    if (!Array.isArray(db.agents)) {
+      db.agents = [...DEFAULT_AGENTS];
+    }
+    db.agents.push(newAgent);
+    saveDatabase();
+    return newAgent;
+  },
+
+  updateAgent(id: string, updates: Partial<AIAgentProfile>): AIAgentProfile | null {
+    const idx = (db.agents || []).findIndex((a) => a.id === id);
+    if (idx === -1) return null;
+    db.agents[idx] = {
+      ...db.agents[idx],
+      ...updates,
+    };
+    saveDatabase();
+    return db.agents[idx];
+  },
+
+  deleteAgent(id: string): boolean {
+    const agent = this.getAgent(id);
+    if (!agent || !agent.isCustom) {
+      // Don't delete built-in agents
+      return false;
+    }
+    const initialLen = db.agents.length;
+    db.agents = db.agents.filter((a) => a.id !== id);
+    saveDatabase();
+    return db.agents.length < initialLen;
+  },
+
+  getAgentSettings(): AgentModelSettings {
+    if (!db.agentSettings) {
+      db.agentSettings = { ...DEFAULT_AGENT_SETTINGS };
+      saveDatabase();
+    }
+    return db.agentSettings;
+  },
+
+  updateAgentSettings(settings: Partial<AgentModelSettings>): AgentModelSettings {
+    db.agentSettings = {
+      ...this.getAgentSettings(),
+      ...settings,
+    };
+    saveDatabase();
+    return db.agentSettings;
   },
 };

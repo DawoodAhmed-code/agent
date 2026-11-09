@@ -1,0 +1,853 @@
+{
+  "users": [
+    {
+      "id": "user_default_agency_1",
+      "email": "dawoodahmed0175@gmail.com",
+      "name": "Dawood Ahmed",
+      "agencyName": "Apex Web & Digital Growth",
+      "servicesOffered": [
+        "Professional Website Development",
+        "Website Redesign",
+        "Brand Advertising",
+        "Business Branding"
+      ],
+      "portfolioUrl": "",
+      "bookingUrl": "https://calendly.com/apex-growth/discovery-call",
+      "signature": "Best regards,\nDawood Ahmed | Lead Strategist\nApex Web & Digital Growth",
+      "createdAt": "2026-11-02T16:53:45.300Z"
+    }
+  ],
+  "campaigns": [
+    {
+      "userId": "user_default_agency_1",
+      "name": "salon in abu dhabi",
+      "country": "uae",
+      "city": "abu dhabi",
+      "businessNiche": "salon",
+      "targetCount": 5,
+      "services": [
+        "Website Redesign",
+        "Brand Advertising",
+        "Professional Website Development",
+        "Business Branding"
+      ],
+      "targetBusinessSize": "Small to Medium (5-25 staff)",
+      "preferredLanguage": "English",
+      "minWebsiteQuality": "Moderate (Opportunity for upgrade)",
+      "selectedAgentId": "agent_apex_growth",
+      "leadsFound": 3,
+      "createdAt": "2026-11-09T17:50:41.155Z",
+      "updatedAt": "2026-11-09T18:03:45.000Z",
+      "status": "completed"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "name": "salon in abu dhabi",
+      "country": "uae",
+      "city": "abu dhabi",
+      "businessNiche": "salon",
+      "targetCount": 3,
+      "services": [
+        "Website Redesign",
+        "Brand Advertising",
+        "Professional Website Development",
+        "Business Branding"
+      ],
+      "targetBusinessSize": "Small to Medium (5-25 staff)",
+      "preferredLanguage": "English",
+      "minWebsiteQuality": "Moderate (Opportunity for upgrade)",
+      "selectedAgentId": "agent_creative_ux",
+      "status": "draft",
+      "id": "camp_8075e276",
+      "leadsFound": 0,
+      "createdAt": "2026-11-09T17:50:35.178Z",
+      "updatedAt": "2026-11-09T17:50:35.813Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "name": "salon in abu dhabi",
+      "country": "uae",
+      "city": "abu dhabi",
+      "businessNiche": "salon",
+      "targetCount": 5,
+      "services": [
+        "Website Redesign",
+        "Brand Advertising",
+        "Professional Website Development",
+        "Business Branding"
+      ],
+      "targetBusinessSize": "Small to Medium (5-25 staff)",
+      "preferredLanguage": "English",
+      "minWebsiteQuality": "Moderate (Opportunity for upgrade)",
+      "selectedAgentId": "agent_enterprise_closer",
+      "status": "failed",
+      "id": "camp_1e635e8f",
+      "leadsFound": 0,
+      "createdAt": "2026-11-09T17:50:12.017Z",
+      "updatedAt": "2026-11-09T17:50:12.677Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "name": "salon in abu dhabi",
+      "country": "uae",
+      "city": "abu dhabi",
+      "businessNiche": "salon",
+      "targetCount": 5,
+      "services": [
+        "Website Redesign",
+        "Brand Advertising",
+        "Professional Website Development",
+        "Business Branding"
+      ],
+      "targetBusinessSize": "Small to Medium (5-25 staff)",
+      "preferredLanguage": "English",
+      "minWebsiteQuality": "Moderate (Opportunity for upgrade)",
+      "selectedAgentId": "agent_speed_tech",
+      "status": "failed",
+      "id": "camp_ff3021c8",
+      "leadsFound": 0,
+      "createdAt": "2026-11-09T17:50:05.730Z",
+      "updatedAt": "2026-11-09T17:50:06.362Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "name": "salon in abu dhabi",
+      "country": "uae",
+      "city": "abu dhabi",
+      "businessNiche": "salon",
+      "targetCount": 5,
+      "services": [
+        "Website Redesign",
+        "Brand Advertising",
+        "Professional Website Development",
+        "Business Branding"
+      ],
+      "targetBusinessSize": "Small to Medium (5-25 staff)",
+      "preferredLanguage": "English",
+      "minWebsiteQuality": "Moderate (Opportunity for upgrade)",
+      "selectedAgentId": "agent_local_scout",
+      "status": "failed",
+      "id": "camp_13082211",
+      "leadsFound": 0,
+      "createdAt": "2026-11-09T17:49:30.898Z",
+      "updatedAt": "2026-11-09T17:49:31.875Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "name": "web development",
+      "country": "United Kingdom",
+      "city": "Manchester",
+      "businessNiche": "salon",
+      "targetCount": 5,
+      "services": [
+        "Website Redesign",
+        "Brand Advertising",
+        "Business Branding",
+        "Professional Website Development"
+      ],
+      "targetBusinessSize": "Small to Medium (5-25 staff)",
+      "preferredLanguage": "English",
+      "minWebsiteQuality": "Moderate (Opportunity for upgrade)",
+      "status": "failed",
+      "id": "camp_c2552d2d",
+      "leadsFound": 0,
+      "createdAt": "2026-11-09T17:26:31.023Z",
+      "updatedAt": "2026-11-09T17:26:31.700Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "name": "web development",
+      "country": "United Kingdom",
+      "city": "Manchester",
+      "businessNiche": "salon",
+      "targetCount": 5,
+      "services": [
+        "Website Redesign",
+        "Brand Advertising",
+        "Business Branding",
+        "Professional Website Development"
+      ],
+      "targetBusinessSize": "Small to Medium (5-25 staff)",
+      "preferredLanguage": "English",
+      "minWebsiteQuality": "Moderate (Opportunity for upgrade)",
+      "status": "failed",
+      "id": "camp_87fbeaa4",
+      "leadsFound": 0,
+      "createdAt": "2026-11-09T16:57:09.113Z",
+      "updatedAt": "2026-11-09T16:57:09.933Z"
+    },
+    {
+      "id": "camp_manchester_arch_01",
+      "userId": "user_default_agency_1",
+      "name": "UK Architecture Firms - Redesign & Brand Ads",
+      "country": "United Kingdom",
+      "city": "Manchester",
+      "businessNiche": "Architecture Firms",
+      "targetCount": 15,
+      "services": [
+        "Website Redesign",
+        "Brand Advertising",
+        "UI/UX Design"
+      ],
+      "targetBusinessSize": "Small to Medium (5-25 staff)",
+      "preferredLanguage": "English",
+      "minWebsiteQuality": "Moderate (Opportunity for upgrade)",
+      "status": "completed",
+      "leadsFound": 6,
+      "createdAt": "2026-11-07T16:53:45.300Z",
+      "updatedAt": "2026-11-08T16:53:45.300Z"
+    }
+  ],
+  "leads": [
+    {
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_df6f65be",
+      "campaignName": "salon in abu dhabi",
+      "businessName": "Bedashing Beauty Lounge",
+      "businessCategory": "Beauty and Wellness Salon",
+      "country": "uae",
+      "city": "abu dhabi",
+      "website": "https://bedashingbeauty.com",
+      "email": "customerservice@bedashing.ae",
+      "phone": "+971-600-560037",
+      "websiteQualityAssessment": "The Bedashing Beauty Lounge website is visually aesthetic but suffers from slow load times due to unoptimized high-resolution imagery and a slightly disjointed mobile navigation flow that creates friction for booking.",
+      "brandingAssessment": "The brand identity is strong and consistent with high-end luxury, but it lacks dynamic, conversion-focused storytelling that bridges the gap between 'beauty lounge' and 'lifestyle destination'.",
+      "marketingOpportunity": "There is a massive opportunity to implement retargeting funnels for abandoned bookings and SEO-driven service pages that capture high-intent local traffic in Abu Dhabi.",
+      "identifiedProblems": [
+        "High bounce rate potential due to slow mobile asset loading speeds.",
+        "Fragmented booking funnel that forces users through too many clicks.",
+        "Lack of localized SEO optimization for specific beauty treatments."
+      ],
+      "recommendedService": "Website Redesign focused on Performance Optimization and Conversion Rate Optimization (CRO)",
+      "leadScore": 78,
+      "scoreBreakdown": {
+        "websiteOpportunity": 25,
+        "brandingOpportunity": 12,
+        "marketingOpportunity": 18,
+        "serviceRelevance": 18,
+        "informationCompleteness": 5
+      },
+      "priority": "High",
+      "scoreReason": "High-intent local business with a premium brand, but significant technical debt on the website is actively leaking potential revenue.",
+      "researchSource": "https://bedashingbeauty.com/contact-us/",
+      "researchDate": "2026-11-09",
+      "status": "Researched",
+      "outreach": {
+        "emailSubject": "Improving Bedashing Beauty's digital booking efficiency",
+        "emailBody": "Hi Team, I’ve been following Bedashing Beauty’s growth in Abu Dhabi. While your branding is exceptional, I noticed a few technical friction points on your mobile site that could be costing you direct bookings.\n\nAt Apex Web & Digital Growth, we specialize in refining high-end salon funnels to ensure your digital experience matches the quality of your physical services. A few optimizations could significantly decrease your bounce rate and increase total bookings.\n\nI’ve put together a few specific growth strategies for Bedashing. Are you open to a brief 10-minute discovery call to discuss these findings?\n\nBest, Dawood Ahmed | https://calendly.com/apex-growth/discovery-call",
+        "shortContactMessage": "Hi Team, I’m a fan of Bedashing Beauty. I audited your site and found a few technical optimizations that could help increase your online booking conversion rate. Would you be open to a quick chat on how to streamline this? Best, Dawood Ahmed, Apex Web & Digital Growth.",
+        "linkedInMessage": "Hi Team, I admire the premium positioning of Bedashing Beauty Lounge in Abu Dhabi. I’m Dawood Ahmed from Apex Web & Digital Growth. I recently performed a brief audit of your digital presence and identified three high-impact opportunities to improve your mobile booking flow and site speed. I’d love to share these findings with you—would you be open to a brief conversation?",
+        "followUpMessage": "Hi again, just following up to see if you had a chance to review my previous note regarding your site's booking flow.\n\nI’m confident that a few structural adjustments to your mobile experience will yield measurable improvements in your conversion numbers. Looking forward to hearing from you."
+      },
+      "dealValue": 4500,
+      "id": "lead_1d6bb65d",
+      "createdAt": "2026-11-09T18:03:44.005Z",
+      "updatedAt": "2026-11-09T18:03:44.005Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_df6f65be",
+      "campaignName": "salon in abu dhabi",
+      "businessName": "Tips and Toes",
+      "businessCategory": "Nail and Beauty Salon",
+      "country": "uae",
+      "city": "abu dhabi",
+      "website": "https://www.tipsandtoes.com",
+      "email": "enquiries@tipsandtoes.com",
+      "phone": "+971-4-399-0550",
+      "websiteQualityAssessment": "The Tips and Toes website is aesthetically aligned with their luxury positioning but suffers from significant performance bottlenecks and a fragmented user experience, particularly regarding mobile responsiveness and booking flow efficiency.",
+      "brandingAssessment": "Strong visual identity and consistent high-end aesthetic; however, the brand voice lacks a clear conversion-focused narrative to drive direct online bookings over physical foot traffic.",
+      "marketingOpportunity": "Massive potential to optimize the 'Book Now' conversion funnel, as current multi-step redirects create significant friction for high-intent users on mobile devices.",
+      "identifiedProblems": [
+        "High-latency loading times due to unoptimized hero imagery causing mobile bounce rates.",
+        "Friction-heavy booking process that forces multiple redirects, leading to drop-offs.",
+        "Lack of integrated conversion tracking on service-specific landing pages."
+      ],
+      "recommendedService": "Website Redesign & Conversion Funnel Optimization",
+      "leadScore": 88,
+      "scoreBreakdown": {
+        "websiteOpportunity": 28,
+        "brandingOpportunity": 15,
+        "marketingOpportunity": 18,
+        "serviceRelevance": 19,
+        "informationCompleteness": 8
+      },
+      "priority": "High",
+      "scoreReason": "The client is a premium market leader with high traffic volume; even a 5% increase in mobile conversion efficiency through a site redesign would result in substantial immediate revenue gains.",
+      "researchSource": "https://www.tipsandtoes.com/locations",
+      "researchDate": "2026-11-09",
+      "status": "Researched",
+      "outreach": {
+        "emailSubject": "Optimizing Tips and Toes digital booking experience",
+        "emailBody": "I’ve been following Tips and Toes’ growth in Abu Dhabi. While your brand presence is elite, I noticed several friction points in your mobile booking funnel that are likely causing potential clients to drop off before completing their reservation.\n\nAt Apex Web & Digital Growth, we specialize in luxury service funnels. By streamlining your site’s architecture and compressing resource-heavy media, we can significantly boost your mobile conversion rates and user retention.\n\nI’ve put together a brief roadmap on how we could modernize your digital booking flow to match the caliber of your in-salon experience. Would you be open to a 10-minute discovery call to review these high-impact adjustments?\n\nYou can book a time that suits you here: https://calendly.com/apex-growth/discovery-call",
+        "shortContactMessage": "Hi Tips and Toes team, I'm Dawood from Apex Growth. I’m a fan of your brand, but I noticed some friction in your mobile booking process that may be costing you daily reservations. I’ve identified a few high-ROI adjustments to streamline this and boost conversions. Are you open to a brief chat to discuss how we can elevate your digital client acquisition?",
+        "linkedInMessage": "Hi, I’ve been analyzing the digital presence of Tips and Toes. Your brand aesthetic is top-tier, but I’ve identified specific bottlenecks in your mobile booking funnel that could be hindering your conversion rates. As a specialist in luxury digital growth, I’d love to share some insights on how we can streamline your path-to-purchase to better reflect your market position. Would you be open to a brief connection?",
+        "followUpMessage": "I’m touching base to see if you had a moment to review my previous message regarding the booking funnel at Tips and Toes.\n\nEven minor refinements to your mobile page load speeds and CTA placement could yield significant growth in your online bookings. If you're interested in a quick audit, feel free to grab a slot on my calendar: https://calendly.com/apex-growth/discovery-call"
+      },
+      "dealValue": 6500,
+      "id": "lead_316c3588",
+      "createdAt": "2026-11-09T18:03:29.846Z",
+      "updatedAt": "2026-11-09T18:03:29.846Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_df6f65be",
+      "campaignName": "salon in abu dhabi",
+      "businessName": "Pastels Salon",
+      "businessCategory": "Beauty and Hair Salon",
+      "country": "uae",
+      "city": "abu dhabi",
+      "website": "https://www.pastels-salon.com",
+      "email": "info@pastels-salon.com",
+      "phone": "+971-2-678-1900",
+      "websiteQualityAssessment": "The website provides a clean, aesthetic look consistent with a high-end salon, but suffers from performance bottlenecks including large image assets and suboptimal mobile navigation flow that hinders seamless booking.",
+      "brandingAssessment": "Visual identity is consistent and professional; however, the brand voice lacks a modern 'growth-first' digital presence to effectively compete against newer luxury salon chains in Abu Dhabi.",
+      "marketingOpportunity": "The current funnel lacks a clear lead magnet or remarketing strategy. By implementing a conversion-optimized booking path, Pastels Salon can significantly increase their appointment conversion rates from organic web traffic.",
+      "identifiedProblems": [
+        "High page load latency due to unoptimized high-resolution imagery.",
+        "Non-intuitive booking CTA placement on mobile devices causing friction.",
+        "Lack of integrated conversion tracking to measure ROI on digital visibility."
+      ],
+      "recommendedService": "Website Redesign & Conversion Funnel Optimization",
+      "leadScore": 78,
+      "scoreBreakdown": {
+        "websiteOpportunity": 25,
+        "brandingOpportunity": 12,
+        "marketingOpportunity": 18,
+        "serviceRelevance": 18,
+        "informationCompleteness": 5
+      },
+      "priority": "High",
+      "scoreReason": "High potential for revenue growth through improved mobile conversion rates and site performance enhancements, aligning perfectly with Apex Web & Digital Growth's core competencies.",
+      "researchSource": "https://www.pastels-salon.com/contact-us",
+      "researchDate": "2026-11-09",
+      "status": "Researched",
+      "outreach": {
+        "emailSubject": "Improving Pastels Salon's digital booking efficiency",
+        "emailBody": "Dear Pastels Salon Team,\n\nI’ve been tracking your digital presence in Abu Dhabi and am impressed by your brand’s prestige. However, I noticed some performance friction on your mobile site that is likely causing a drop-off in potential appointment bookings.\n\nAt Apex Web & Digital Growth, we specialize in transforming high-end beauty brands' digital platforms into high-converting funnels. I have identified two specific technical adjustments that could immediately improve your site’s load speed and booking flow.\n\nAre you open to a brief 10-minute discovery call to review these insights and discuss how we can elevate your client acquisition?\n\nBest,\nDawood Ahmed\nApex Web & Digital Growth\nhttps://calendly.com/apex-growth/discovery-call",
+        "shortContactMessage": "Hi Pastels Salon team, I’m Dawood from Apex. Your brand is stellar, but I’ve identified a few technical bottlenecks on your mobile site that are likely hurting your booking conversions. I’d love to share these quick wins with you to help grow your client base. Are you open to a brief chat this week?",
+        "linkedInMessage": "Hi Pastels Salon Team, I’m Dawood Ahmed from Apex Web & Digital Growth. I’ve been following your brand and noticed a few high-impact opportunities on your website to streamline your mobile booking funnel and increase appointment volume. I'd love to share my audit findings with you to help boost your digital ROI. Would you be open to a 10-minute discovery call this week? Best, Dawood.",
+        "followUpMessage": "Hi Team, following up on my previous message. I’ve finalized a quick audit of the Pastels Salon mobile funnel and have some specific suggestions to reduce friction for your booking clients.\n\nDo you have a moment later this week to walk through these optimizations? You can book a time that suits you here: https://calendly.com/apex-growth/discovery-call"
+      },
+      "dealValue": 4500,
+      "id": "lead_37ccef4a",
+      "createdAt": "2026-11-09T18:03:17.978Z",
+      "updatedAt": "2026-11-09T18:03:17.978Z"
+    },
+    {
+      "id": "lead_arch_01",
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_manchester_arch_01",
+      "campaignName": "UK Architecture Firms - Redesign & Brand Ads",
+      "businessName": "Hodder and Partners Architects",
+      "businessCategory": "Architecture & Urban Planning",
+      "country": "United Kingdom",
+      "city": "Manchester",
+      "website": "https://www.hodderandpartners.com",
+      "email": "studio@hodderandpartners.com",
+      "phone": "+44 161 832 9842",
+      "websiteQualityAssessment": "Desktop portfolio looks established but mobile navigation is unresponsive; project imagery is slow to load without WebP compression.",
+      "brandingAssessment": "Strong heritage architectural reputation, but typographic contrast on high-res monitors is faint and brand palette lacks modern web vibrance.",
+      "marketingOpportunity": "High local search authority in Greater Manchester but missing structured conversion funnels or targeted Google Ads for commercial developers.",
+      "identifiedProblems": [
+        "Mobile navigation menu jumps and fails WCAG accessibility on touch devices",
+        "Large uncompressed project hero photos leading to ~4.2s mobile loading delay",
+        "No direct booking widget or clear proposal inquiry form on project case study pages"
+      ],
+      "recommendedService": "Website Redesign",
+      "leadScore": 84,
+      "scoreBreakdown": {
+        "websiteOpportunity": 27,
+        "brandingOpportunity": 16,
+        "marketingOpportunity": 17,
+        "serviceRelevance": 16,
+        "informationCompleteness": 8
+      },
+      "priority": "High",
+      "scoreReason": "Premier Manchester firm with active high-value awards but severely hampered by legacy non-optimized mobile portfolio and absent inquiry funnels.",
+      "researchSource": "Google Search & RIBA Directory verified",
+      "researchDate": "2026-11-09",
+      "status": "Interested",
+      "dealValue": 6500,
+      "followUpDate": "2026-11-12",
+      "notes": "Managing director expressed interest in streamlining their client project case studies to attract institutional commercial developers.",
+      "createdAt": "2026-11-07T16:53:45.300Z",
+      "updatedAt": "2026-11-09T12:53:45.300Z",
+      "outreach": {
+        "emailSubject": "Modernizing Hodder and Partners portfolio experience for commercial developer leads",
+        "emailBody": "Hi Stephen and the Hodder and Partners team,\n\nI recently admired your Stirling Prize-winning work across Greater Manchester. While reviewing your online portfolio, I noticed your architectural imagery looks stunning on desktop, but takes over 4 seconds to load on mobile devices with navigation jumping on mobile touchscreens.\n\nAt Apex Web & Digital Growth, we build ultra-fast, responsive architectural portfolios and client inquiry funnels that turn luxury property developers into booked consultations.\n\nWould you be open to a 10-minute preview showing how an interactive project showcase and speed upgrade could showcase your landmark buildings flawlessly?\n\nBest regards,\nDawood Ahmed | Lead Strategist\nApex Web & Digital Growth\nhttps://apexwebstudios.agency",
+        "shortContactMessage": "Hi Hodder & Partners team! Huge admirers of your Manchester architectural projects. We put together a brief review on how optimizing mobile load times and portfolio presentation can increase high-value developer inquiries: https://apexwebstudios.agency",
+        "linkedInMessage": "Hi Stephen - your Manchester portfolio work is remarkable. Noticed a quick opportunity to enhance your mobile portfolio load times and interactive project case studies for high-end developers. Would love to share brief ideas if open.",
+        "followUpMessage": "Hi Stephen, following up on my previous note regarding modernizing the mobile showcase for Hodder and Partners. We just finished an interactive project viewer for a UK studio that doubled developer inquiries. Happy to send a 2-minute Loom if helpful?"
+      }
+    },
+    {
+      "id": "lead_arch_02",
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_manchester_arch_01",
+      "campaignName": "UK Architecture Firms - Redesign & Brand Ads",
+      "businessName": "Buttress Architects",
+      "businessCategory": "Architecture & Heritage Conservation",
+      "country": "United Kingdom",
+      "city": "Manchester",
+      "website": "https://www.buttress.net",
+      "email": "enquiries@buttress.net",
+      "phone": "+44 161 236 3303",
+      "websiteQualityAssessment": "Clean layout with great photography, but conversion paths for prospective heritage and residential clients are buried inside nested footer links.",
+      "brandingAssessment": "Excellent brand cohesion, minimal editorial style that could be leveraged into prestigious thought leadership and client attraction.",
+      "marketingOpportunity": "Underutilizing digital campaigns for heritage building grants and modern eco-retrofit sectors across Northern England.",
+      "identifiedProblems": [
+        "Absence of dedicated service-specific landing pages for heritage vs residential clients",
+        "No interactive proposal scheduler or client consultation booking pathway",
+        "Minimal search ads presence for competitive commercial planning keywords"
+      ],
+      "recommendedService": "Brand Advertising",
+      "leadScore": 78,
+      "scoreBreakdown": {
+        "websiteOpportunity": 21,
+        "brandingOpportunity": 14,
+        "marketingOpportunity": 19,
+        "serviceRelevance": 17,
+        "informationCompleteness": 7
+      },
+      "priority": "High",
+      "scoreReason": "Highly reputable conservation practice with strong credentials ready for high-ROI targeted brand advertising & lead generation landing pages.",
+      "researchSource": "Google Search & Architects Journal UK",
+      "researchDate": "2026-11-09",
+      "status": "Contacted",
+      "dealValue": 4800,
+      "followUpDate": "2026-11-11",
+      "notes": "Initial outreach sent via email. Contacted operations partner regarding campaign strategy.",
+      "createdAt": "2026-11-08T16:53:45.300Z",
+      "updatedAt": "2026-11-09T04:53:45.300Z",
+      "outreach": {
+        "emailSubject": "Expanding Buttress Architects heritage client reach via targeted campaign funnels",
+        "emailBody": "Hi Buttress team,\n\nYour conservation projects across Northern England are truly exceptional. Looking closely at your web presence, you have an incredible portfolio, but prospective clients looking for heritage restoration or eco-retrofit expertise have to dig through nested menus to find relevant case studies.\n\nWe specialize in targeted brand advertising and high-converting landing pages for design practices that capture private residential estates and commercial restorations.\n\nWould you be open to reviewing a short 3-point strategy on how targeted ads could reliably deliver premium conservation inquiries each month?\n\nBest regards,\nDawood Ahmed\nApex Web & Digital Growth",
+        "shortContactMessage": "Hi Buttress team! Love your heritage architecture work. We prepared a quick strategy breakdown on driving targeted inquiries for your conservation and residential practices: https://apexwebstudios.agency",
+        "linkedInMessage": "Hi Buttress team, impressive track record in conservation architecture. We help established UK practices generate inbound developer inquiries through targeted campaign funnels. Would love to connect!",
+        "followUpMessage": "Hi team, checking in on my note regarding targeted client acquisition for Buttress Architects heritage projects. Let me know if you would like me to share our recent case study."
+      }
+    },
+    {
+      "id": "lead_arch_03",
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_manchester_arch_01",
+      "campaignName": "UK Architecture Firms - Redesign & Brand Ads",
+      "businessName": "SimpsonHaugh and Partners",
+      "businessCategory": "Masterplanning & Tall Building Architecture",
+      "country": "United Kingdom",
+      "city": "Manchester",
+      "website": "https://www.simpsonhaugh.com",
+      "email": "manchester@simpsonhaugh.com",
+      "phone": "+44 161 834 8341",
+      "websiteQualityAssessment": "Striking visual identity matching their skyline towers, but portfolio filters are sluggish and video headers cause high CPU usage on mobile.",
+      "brandingAssessment": "Iconic architectural branding, very polished typography, but lacks video case studies with client testimonials.",
+      "marketingOpportunity": "High organic brand search, but could benefit from interactive 3D WebGL showcase or bespoke client portal.",
+      "identifiedProblems": [
+        "Mobile experience lags due to unoptimized 4K background video loops",
+        "Filtering projects by typology (Residential vs Civic) triggers page refreshes instead of instant client-side filtering"
+      ],
+      "recommendedService": "UI/UX Design",
+      "leadScore": 71,
+      "scoreBreakdown": {
+        "websiteOpportunity": 22,
+        "brandingOpportunity": 12,
+        "marketingOpportunity": 14,
+        "serviceRelevance": 16,
+        "informationCompleteness": 7
+      },
+      "priority": "Medium",
+      "scoreReason": "Iconic Manchester skyline designers whose digital presentation could match their physical skyline presence with a polished UI/UX upgrade.",
+      "researchSource": "Google Search Grounding",
+      "researchDate": "2026-11-09",
+      "status": "Message Prepared",
+      "dealValue": 8500,
+      "notes": "Outreach drafted and personalized with skyline projects.",
+      "createdAt": "2026-11-08T16:53:45.300Z",
+      "updatedAt": "2026-11-09T08:53:45.300Z",
+      "outreach": {
+        "emailSubject": "UI/UX optimization ideas for the SimpsonHaugh online masterplanning showcase",
+        "emailBody": "Hi SimpsonHaugh team,\n\nYour skyline-defining towers in Manchester and London are modern architectural icons. While admiring your digital portfolio, I noted that your video headers and portfolio filtering experience on mobile devices experience noticeable lag.\n\nWe design cutting-edge, buttery-smooth digital experiences for elite architectural practices, incorporating instant project filtering and interactive case studies.\n\nWould you be open to seeing a 2-minute concept mockup of how your portfolio could feel as fluid and iconic as the buildings you design?\n\nWarm regards,\nDawood Ahmed\nApex Web & Digital Growth",
+        "shortContactMessage": "Hi SimpsonHaugh team! Huge fans of your Deansgate and skyline work. We put together a brief UI concept on speeding up portfolio filtering on mobile touchscreens: https://apexwebstudios.agency",
+        "linkedInMessage": "Hi SimpsonHaugh team - your tower projects define Manchester. Noticed a quick opportunity to enhance the UI responsiveness of your mobile portfolio filter. Happy to share a quick concept if interested!",
+        "followUpMessage": "Hi team, following up on our thoughts for the SimpsonHaugh digital portfolio experience. Let me know if you would like a brief walkthrough of the UI ideas."
+      }
+    },
+    {
+      "id": "lead_arch_04",
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_manchester_arch_01",
+      "campaignName": "UK Architecture Firms - Redesign & Brand Ads",
+      "businessName": "OOMI Architects & Studio",
+      "businessCategory": "Boutique Residential Architecture",
+      "country": "United Kingdom",
+      "city": "Manchester",
+      "website": "https://www.oomistudio.co.uk",
+      "email": "hello@oomistudio.co.uk",
+      "phone": "+44 161 974 6120",
+      "websiteQualityAssessment": "Template-based website with basic gallery, lacks mobile optimization and SSL certificate warnings on some subpages.",
+      "brandingAssessment": "Boutique vibe but lacks clear value proposition on homepage; typography is generic system fonts.",
+      "marketingOpportunity": "Excellent opportunity for local SEO and targeted Instagram/Google Search Ads for luxury home extensions and barn conversions.",
+      "identifiedProblems": [
+        "Generic Squarespace/Wix template with slow image grids",
+        "No client reviews or social proof featured above the fold",
+        "Missing Google Analytics & conversion tracking pixels"
+      ],
+      "recommendedService": "Website Redesign",
+      "leadScore": 91,
+      "scoreBreakdown": {
+        "websiteOpportunity": 29,
+        "brandingOpportunity": 19,
+        "marketingOpportunity": 19,
+        "serviceRelevance": 18,
+        "informationCompleteness": 6
+      },
+      "priority": "High",
+      "scoreReason": "Prime candidate: Active boutique practice with high project values but currently restricted by an outdated, slow template site that loses homeowner leads.",
+      "researchSource": "Google Search & Houzz UK",
+      "researchDate": "2026-11-09",
+      "status": "Negotiation",
+      "dealValue": 5200,
+      "followUpDate": "2026-11-10",
+      "notes": "Had initial discovery call. Sent custom redesign & SEO proposal. Awaiting final partner sign-off.",
+      "createdAt": "2026-11-06T16:53:45.300Z",
+      "updatedAt": "2026-11-09T14:53:45.300Z",
+      "outreach": {
+        "emailSubject": "Transforming OOMI Studio website into a high-end client acquisition engine",
+        "emailBody": "Hi OOMI Studio team,\n\nI love your bespoke residential projects in Cheshire and Greater Manchester. While reviewing your website, I noticed the template gallery takes a while to load on phones and lacks a direct consultation booking workflow for homeowners.\n\nWe build custom, ultra-fast websites specifically tailored for boutique architects that showcase craftsmanship and convert affluent homeowners into pre-qualified inquiries.\n\nCould we jump on a brief 10-minute call this Thursday to share a few redesign ideas?\n\nBest,\nDawood Ahmed\nApex Web & Digital Growth",
+        "shortContactMessage": "Hi OOMI team! Great residential projects. We shared a proposal on upgrading your online portfolio and homeowner inquiry process: https://apexwebstudios.agency",
+        "linkedInMessage": "Hi OOMI team - love your residential extensions and barn transformations. Sent over a tailored proposal for your website revamp. Looking forward to speaking soon!",
+        "followUpMessage": "Hi team, checking in on the website redesign proposal we sent over. Happy to answer any questions regarding timeline and deliverables."
+      }
+    },
+    {
+      "id": "lead_arch_05",
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_manchester_arch_01",
+      "campaignName": "UK Architecture Firms - Redesign & Brand Ads",
+      "businessName": "Urban Splash Architecture & Development",
+      "businessCategory": "Regeneration & Modular Architecture",
+      "country": "United Kingdom",
+      "city": "Manchester",
+      "website": "https://www.urbansplash.co.uk",
+      "email": "live@urbansplash.co.uk",
+      "phone": "+44 161 839 2999",
+      "websiteQualityAssessment": "Solid modern visual layout, but extensive sub-brands create confusing navigation paths for new home buyers.",
+      "brandingAssessment": "Bold, distinctive brand identity, playful tone of voice, strong color blocking.",
+      "marketingOpportunity": "High potential for interactive 3D home configurators and digital advertising campaigns for new developments.",
+      "identifiedProblems": [
+        "Complex cross-domain navigation between rental, development, and modular architecture portals",
+        "High bounce rate on property specification sheets due to PDF downloads instead of dynamic web pages"
+      ],
+      "recommendedService": "UI/UX Design",
+      "leadScore": 68,
+      "scoreBreakdown": {
+        "websiteOpportunity": 20,
+        "brandingOpportunity": 10,
+        "marketingOpportunity": 18,
+        "serviceRelevance": 14,
+        "informationCompleteness": 6
+      },
+      "priority": "Medium",
+      "scoreReason": "Pioneering developer and architectural team with huge scale; substantial UX optimization upside on property listing funnels.",
+      "researchSource": "Google Search & UK Property Week",
+      "researchDate": "2026-11-09",
+      "status": "Researched",
+      "dealValue": 9000,
+      "notes": "Researched property sub-brand architecture. Ready for personalized campaign pitch.",
+      "createdAt": "2026-11-07T16:53:45.300Z",
+      "updatedAt": "2026-11-08T22:53:45.300Z",
+      "outreach": {
+        "emailSubject": "Streamlining Urban Splash property explorer UX for higher buyer conversions",
+        "emailBody": "Hi Urban Splash digital team,\n\nYour pioneering regeneration projects across Manchester have set the benchmark for creative urban living. I noticed that when prospective buyers explore developments, specification details currently require PDF downloads rather than an interactive web viewer.\n\nWe design intuitive, high-converting digital portals and property visualizers that allow buyers to configure and reserve directly on their phones.\n\nWould you be open to a 10-minute preview of how an interactive property explorer could elevate buyer engagement?\n\nBest regards,\nDawood Ahmed\nApex Web & Digital Growth",
+        "shortContactMessage": "Hi Urban Splash team! Big fans of your Manchester regeneration projects. We put together a short concept on interactive property visualizers on mobile: https://apexwebstudios.agency",
+        "linkedInMessage": "Hi Urban Splash team - loving your modular developments. We help forward-thinking property teams create interactive digital experiences that increase buyer reservations. Would love to share ideas!",
+        "followUpMessage": "Hi team, checking in on our note regarding interactive web experiences for your developments. Happy to share a quick prototype if useful."
+      }
+    },
+    {
+      "id": "lead_arch_06",
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_manchester_arch_01",
+      "campaignName": "UK Architecture Firms - Redesign & Brand Ads",
+      "businessName": "Levitt Bernstein Manchester Studio",
+      "businessCategory": "Sustainable Architecture & Housing",
+      "country": "United Kingdom",
+      "city": "Manchester",
+      "website": "https://www.levittbernstein.co.uk",
+      "email": "post@levittbernstein.co.uk",
+      "phone": "+44 161 832 9797",
+      "websiteQualityAssessment": "Thoughtful typography and sustainable case studies, but site navigation lacks clear call-to-action for municipal tenders.",
+      "brandingAssessment": "Established brand with high architectural credibility in housing and sustainability.",
+      "marketingOpportunity": "Could significantly increase inbound inquiries by launching targeted sustainability whitepaper landing pages.",
+      "identifiedProblems": [
+        "Case studies lack structured interactive project metrics (carbon savings, BREEAM scores)",
+        "No direct newsletter or tender notification capture system for institutional partners"
+      ],
+      "recommendedService": "Digital Marketing",
+      "leadScore": 79,
+      "scoreBreakdown": {
+        "websiteOpportunity": 22,
+        "brandingOpportunity": 14,
+        "marketingOpportunity": 20,
+        "serviceRelevance": 16,
+        "informationCompleteness": 7
+      },
+      "priority": "High",
+      "scoreReason": "Top-tier sustainable architecture practice poised to capture massive ESG and social housing procurement tenders with targeted digital marketing.",
+      "researchSource": "Google Search & RIBA Directory",
+      "researchDate": "2026-11-09",
+      "status": "Deal Won",
+      "dealValue": 7200,
+      "notes": "Deal closed! Contract signed for sustainable housing tender landing page campaign and BREEAM digital showcase.",
+      "createdAt": "2026-11-05T16:53:45.300Z",
+      "updatedAt": "2026-11-09T15:53:45.300Z",
+      "outreach": {
+        "emailSubject": "Amplifying Levitt Bernstein sustainable design leadership through targeted campaign funnels",
+        "emailBody": "Hi Levitt Bernstein team,\n\nYour work in social housing and low-carbon architecture is shaping sustainable urban futures. We noticed an opportunity to transform your sustainability case studies into an interactive digital showcase that captivates municipal tender boards.\n\nWe craft targeted digital campaigns and thought leadership landing pages that win high-value institutional contracts.\n\nCould we arrange a 15-minute introductory call to explore how we can support your growth in Northern England?\n\nBest regards,\nDawood Ahmed\nApex Web & Digital Growth",
+        "shortContactMessage": "Hi Levitt Bernstein team! Inspired by your low-carbon housing designs. We prepared some ideas on digital sustainability showcases: https://apexwebstudios.agency",
+        "linkedInMessage": "Hi Levitt Bernstein team - your sustainable housing work is brilliant. We help architectural leaders capture high-value tenders through targeted digital funnels. Would love to connect!",
+        "followUpMessage": "Hi team, checking in on my previous message. We have exciting updates on our architectural marketing frameworks if you would like to review."
+      }
+    }
+  ],
+  "activities": [
+    {
+      "userId": "user_default_agency_1",
+      "leadId": "lead_1d6bb65d",
+      "leadName": "Bedashing Beauty Lounge",
+      "action": "Lead Researched",
+      "details": "Scored 78/100 (High Priority). Recommended: Website Redesign focused on Performance Optimization and Conversion Rate Optimization (CRO)",
+      "id": "act_97f8057e",
+      "timestamp": "2026-11-09T18:03:44.005Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "leadId": "lead_316c3588",
+      "leadName": "Tips and Toes",
+      "action": "Lead Researched",
+      "details": "Scored 88/100 (High Priority). Recommended: Website Redesign & Conversion Funnel Optimization",
+      "id": "act_22932fe4",
+      "timestamp": "2026-11-09T18:03:29.846Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "leadId": "lead_37ccef4a",
+      "leadName": "Pastels Salon",
+      "action": "Lead Researched",
+      "details": "Scored 78/100 (High Priority). Recommended: Website Redesign & Conversion Funnel Optimization",
+      "id": "act_4d589855",
+      "timestamp": "2026-11-09T18:03:17.978Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_df6f65be",
+      "action": "Campaign Created",
+      "details": "Started campaign \"salon in abu dhabi\" for salon in abu dhabi, uae",
+      "id": "act_57792c1d",
+      "timestamp": "2026-11-09T17:50:41.156Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_8075e276",
+      "action": "Campaign Created",
+      "details": "Started campaign \"salon in abu dhabi\" for salon in abu dhabi, uae",
+      "id": "act_194d2c0f",
+      "timestamp": "2026-11-09T17:50:35.179Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_1e635e8f",
+      "action": "Campaign Created",
+      "details": "Started campaign \"salon in abu dhabi\" for salon in abu dhabi, uae",
+      "id": "act_cff5fc60",
+      "timestamp": "2026-11-09T17:50:12.018Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_ff3021c8",
+      "action": "Campaign Created",
+      "details": "Started campaign \"salon in abu dhabi\" for salon in abu dhabi, uae",
+      "id": "act_4f329d52",
+      "timestamp": "2026-11-09T17:50:05.730Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_13082211",
+      "action": "Campaign Created",
+      "details": "Started campaign \"salon in abu dhabi\" for salon in abu dhabi, uae",
+      "id": "act_a67b15d1",
+      "timestamp": "2026-11-09T17:49:30.902Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_c2552d2d",
+      "action": "Campaign Created",
+      "details": "Started campaign \"web development\" for salon in Manchester, United Kingdom",
+      "id": "act_1d6820c3",
+      "timestamp": "2026-11-09T17:26:31.024Z"
+    },
+    {
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_87fbeaa4",
+      "action": "Campaign Created",
+      "details": "Started campaign \"web development\" for salon in Manchester, United Kingdom",
+      "id": "act_bd25f7d1",
+      "timestamp": "2026-11-09T16:57:09.113Z"
+    },
+    {
+      "id": "act_01",
+      "userId": "user_default_agency_1",
+      "leadId": "lead_arch_06",
+      "leadName": "Levitt Bernstein Manchester Studio",
+      "action": "Deal Won",
+      "details": "Closed £7,200 contract for Sustainable Housing Digital Showcase & Tenders campaign.",
+      "timestamp": "2026-11-09T15:53:45.300Z"
+    },
+    {
+      "id": "act_02",
+      "userId": "user_default_agency_1",
+      "leadId": "lead_arch_04",
+      "leadName": "OOMI Architects & Studio",
+      "action": "Status Updated to Negotiation",
+      "details": "Custom website redesign & SEO proposal submitted. Expected deal value: £5,200.",
+      "timestamp": "2026-11-09T14:53:45.300Z"
+    },
+    {
+      "id": "act_03",
+      "userId": "user_default_agency_1",
+      "leadId": "lead_arch_01",
+      "leadName": "Hodder and Partners Architects",
+      "action": "Status Updated to Interested",
+      "details": "Managing director replied requesting 10-minute preview on mobile portfolio upgrade.",
+      "timestamp": "2026-11-09T12:53:45.300Z"
+    },
+    {
+      "id": "act_04",
+      "userId": "user_default_agency_1",
+      "leadId": "lead_arch_02",
+      "leadName": "Buttress Architects",
+      "action": "Outreach Sent",
+      "details": "Personalized email sent to enquiries@buttress.net regarding heritage client acquisition.",
+      "timestamp": "2026-11-09T04:53:45.300Z"
+    },
+    {
+      "id": "act_05",
+      "userId": "user_default_agency_1",
+      "campaignId": "camp_manchester_arch_01",
+      "action": "Campaign Completed",
+      "details": "AI Agent completed deep research on 15 Manchester architecture practices, scoring 6 top prospects.",
+      "timestamp": "2026-11-08T16:53:45.300Z"
+    }
+  ],
+  "sheetsConfig": {
+    "connected": true,
+    "spreadsheetId": "https://docs.google.com/spreadsheets/d/1ibxlAGnAWj0l04TKCuX4M2xLWxDDwoHzvsW3P_DGUKY/edit?gid=0#gid=0",
+    "webhookUrl": "https://script.google.com/macros/s/AKfycbxGPIyZInDJNzZYZ03VhTkN3LWxQ81c_6mpnstXts4UV8ITBonDnen1DHK_Pv5FOO6kpw/exec"
+  },
+  "supabaseConfig": {
+    "enabled": false
+  },
+  "agents": [
+    {
+      "id": "agent_apex_growth",
+      "name": "Apex Strategic Growth Director",
+      "role": "Commercial Web & Agency Principal",
+      "description": "Expert digital agency strategist. Dissects mobile conversion bottlenecks, uncompressed hero media, and friction in consultation funnels to propose lucrative redesign retainers.",
+      "model": "gemini-3.8-flash",
+      "thinkingLevel": "MEDIUM",
+      "systemPrompt": "You are an elite Digital Agency Growth Director. Focus on high-impact conversion friction, mobile responsiveness, and client acquisition funnels. Write authoritative, respectful, and value-driven messages.",
+      "tone": "Consultative & Authoritative",
+      "outreachStyle": "Strategic Value-First Pitch",
+      "isCustom": false,
+      "isDefault": true,
+      "specialtyServices": [
+        "Website Redesign",
+        "Professional Website Development",
+        "UI/UX Design"
+      ],
+      "createdAt": "2026-11-09T17:46:54.476Z"
+    },
+    {
+      "id": "agent_creative_ux",
+      "name": "Creative UI/UX & Aesthetic Critic",
+      "role": "Award-Winning Digital Product Designer",
+      "description": "Focuses on visual hierarchy, typography contrast, brand aesthetic cohesion, layout rhythm, and interactive project showcases for design-conscious clients.",
+      "model": "gemini-3.8-flash",
+      "thinkingLevel": "MEDIUM",
+      "systemPrompt": "You are a world-class UI/UX Designer and Brand Critic. Scrutinize visual polish, typography contrast, portfolio presentation fluidity, and brand elegance.",
+      "tone": "Design-Forward & Sophisticated",
+      "outreachStyle": "Visual Audit & Creative Mockup",
+      "isCustom": false,
+      "specialtyServices": [
+        "UI/UX Design",
+        "Business Branding",
+        "Website Redesign"
+      ],
+      "createdAt": "2026-11-09T17:46:54.476Z"
+    },
+    {
+      "id": "agent_enterprise_closer",
+      "name": "Enterprise B2B Closer",
+      "role": "Corporate Acquisition & Tender Strategist",
+      "description": "Targets established enterprises, commercial builders, and legal practices. Emphasizes lost procurement bids, developer credibility, and high-ticket trust factors.",
+      "model": "gemini-3.8-flash",
+      "thinkingLevel": "HIGH",
+      "systemPrompt": "You are a Senior Corporate B2B Account Executive. Focus on institutional credibility, enterprise compliance, RFP competitiveness, and revenue impact.",
+      "tone": "Executive, Concise & ROI-Driven",
+      "outreachStyle": "High-Ticket Commercial Proposition",
+      "isCustom": false,
+      "specialtyServices": [
+        "Professional Website Development",
+        "Brand Advertising",
+        "Digital Marketing"
+      ],
+      "createdAt": "2026-11-09T17:46:54.476Z"
+    },
+    {
+      "id": "agent_speed_tech",
+      "name": "Speed, SEO & Tech Auditor",
+      "role": "Full-Stack Performance Engineer",
+      "description": "Analyzes Core Web Vitals, page weight, mobile viewport lag, schema markup, and organic search ranking gaps.",
+      "model": "gemini-3.1-flash-lite",
+      "thinkingLevel": "LOW",
+      "systemPrompt": "You are a Senior Web Performance and Technical SEO Specialist. Identify slow mobile load times, uncompressed assets, missing meta structures, and measurable speed fixes.",
+      "tone": "Analytical, Metric-Driven & Direct",
+      "outreachStyle": "Technical Speed & SEO Diagnostic",
+      "isCustom": false,
+      "specialtyServices": [
+        "Professional Website Development",
+        "Website Redesign",
+        "Digital Marketing"
+      ],
+      "createdAt": "2026-11-09T17:46:54.476Z"
+    },
+    {
+      "id": "agent_local_scout",
+      "name": "Local Business & Map Ranker",
+      "role": "Local Commercial Growth Specialist",
+      "description": "Specializes in local service providers, clinics, restaurants, and contractors. Focuses on local search ranking, Google Maps, instant phone tap-to-call, and local lead funnels.",
+      "model": "gemini-3.8-flash",
+      "thinkingLevel": "MEDIUM",
+      "systemPrompt": "You are a Local SEO and Conversion Strategist. Focus on phone lead generation, local Google visibility, and customer reviews.",
+      "tone": "Friendly, Accessible & Direct",
+      "outreachStyle": "Local Growth & Consultation Audit",
+      "isCustom": false,
+      "specialtyServices": [
+        "Brand Advertising",
+        "Digital Marketing",
+        "Website Redesign"
+      ],
+      "createdAt": "2026-11-09T17:46:54.476Z"
+    }
+  ],
+  "agentSettings": {
+    "globalModel": "gemini-3.1-flash-lite",
+    "activeAgentId": "agent_apex_growth",
+    "discoveryAgentId": "agent_apex_growth",
+    "websiteAnalysisAgentId": "agent_creative_ux",
+    "leadScoringAgentId": "agent_apex_growth",
+    "outreachAgentId": "agent_apex_growth",
+    "reportingAgentId": "agent_enterprise_closer"
+  }
+}

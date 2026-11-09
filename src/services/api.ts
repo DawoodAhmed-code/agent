@@ -146,11 +146,15 @@ export const api = {
     return res.json();
   },
 
-  async generateOutreach(id: string, customInstructions?: string): Promise<{ success: boolean; lead: Lead }> {
+  async generateOutreach(
+    id: string,
+    customInstructions?: string,
+    agentId?: string
+  ): Promise<{ success: boolean; lead: Lead }> {
     const res = await fetch(`${API_BASE}/leads/${id}/generate-outreach`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ customInstructions }),
+      body: JSON.stringify({ customInstructions, agentId }),
     });
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
@@ -159,9 +163,11 @@ export const api = {
     return res.json();
   },
 
-  async reResearchLead(id: string): Promise<{ success: boolean; lead: Lead }> {
+  async reResearchLead(id: string, agentId?: string): Promise<{ success: boolean; lead: Lead }> {
     const res = await fetch(`${API_BASE}/leads/${id}/research`, {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ agentId }),
     });
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
@@ -208,6 +214,98 @@ export const api = {
   async syncSheets(): Promise<{ success: boolean; syncedCount: number; message: string }> {
     const res = await fetch(`${API_BASE}/sheets/sync`, { method: 'POST' });
     if (!res.ok) throw new Error('Failed to sync sheets');
+    return res.json();
+  },
+
+  // AI Agent Studio & Model Management
+  async getAgents(): Promise<import('../types/index.js').AIAgentProfile[]> {
+    const res = await fetch(`${API_BASE}/agents`);
+    if (!res.ok) throw new Error('Failed to fetch AI agents');
+    return res.json();
+  },
+
+  async createAgent(
+    agent: Partial<import('../types/index.js').AIAgentProfile>
+  ): Promise<import('../types/index.js').AIAgentProfile> {
+    const res = await fetch(`${API_BASE}/agents`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(agent),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Failed to create AI agent');
+    }
+    return res.json();
+  },
+
+  async updateAgent(
+    id: string,
+    updates: Partial<import('../types/index.js').AIAgentProfile>
+  ): Promise<import('../types/index.js').AIAgentProfile> {
+    const res = await fetch(`${API_BASE}/agents/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updates),
+    });
+    if (!res.ok) throw new Error('Failed to update agent');
+    return res.json();
+  },
+
+  async deleteAgent(id: string): Promise<{ success: boolean }> {
+    const res = await fetch(`${API_BASE}/agents/${id}`, {
+      method: 'DELETE',
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Failed to delete agent');
+    }
+    return res.json();
+  },
+
+  async getAgentSettings(): Promise<{
+    settings: import('../types/index.js').AgentModelSettings;
+    availableModels: import('../types/index.js').AIModelName[];
+  }> {
+    const res = await fetch(`${API_BASE}/agent-settings`);
+    if (!res.ok) throw new Error('Failed to fetch agent settings');
+    return res.json();
+  },
+
+  async updateAgentSettings(
+    settings: Partial<import('../types/index.js').AgentModelSettings>
+  ): Promise<{ success: boolean; settings: import('../types/index.js').AgentModelSettings }> {
+    const res = await fetch(`${API_BASE}/agent-settings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(settings),
+    });
+    if (!res.ok) throw new Error('Failed to update agent settings');
+    return res.json();
+  },
+
+  async testAgentPlayground(payload: {
+    model: string;
+    systemPrompt: string;
+    userPrompt: string;
+    thinkingLevel?: string;
+    useSearch?: boolean;
+  }): Promise<{
+    success: boolean;
+    modelUsed: string;
+    text: string;
+    groundingChunks?: any[];
+    testedAt: string;
+  }> {
+    const res = await fetch(`${API_BASE}/agents/playground/test`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Failed to test agent in playground');
+    }
     return res.json();
   },
 };

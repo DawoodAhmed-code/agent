@@ -21,23 +21,27 @@ import {
   ShieldCheck,
   Edit3,
   MessageSquare,
+  Bot,
+  Cpu,
   Linkedin,
 } from 'lucide-react';
-import { Lead, LeadStatus, Priority } from '../../types/index.js';
+import { Lead, LeadStatus, Priority, AIAgentProfile } from '../../types/index.js';
 
 interface LeadProfileModalProps {
   lead: Lead | null;
   isOpen: boolean;
+  agents?: AIAgentProfile[];
   onClose: () => void;
   onUpdateLead: (id: string, updates: Partial<Lead>) => Promise<Lead | void>;
   onDeleteLead: (id: string) => Promise<void>;
-  onGenerateOutreach: (id: string, prompt?: string) => Promise<void>;
-  onReResearch: (id: string) => Promise<void>;
+  onGenerateOutreach: (id: string, prompt?: string, agentId?: string) => Promise<void>;
+  onReResearch: (id: string, agentId?: string) => Promise<void>;
 }
 
 export const LeadProfileModal: React.FC<LeadProfileModalProps> = ({
   lead,
   isOpen,
+  agents = [],
   onClose,
   onUpdateLead,
   onDeleteLead,
@@ -48,6 +52,7 @@ export const LeadProfileModal: React.FC<LeadProfileModalProps> = ({
 
   const [activeTab, setActiveTab] = useState<'profile' | 'outreach' | 'notes'>('profile');
   const [outreachFormat, setOutreachFormat] = useState<'email' | 'linkedin' | 'short' | 'followup'>('email');
+  const [selectedAgentId, setSelectedAgentId] = useState<string>(agents[0]?.id || '');
 
   // Editable local state
   const [status, setStatus] = useState<LeadStatus>(lead.status);
@@ -143,7 +148,7 @@ export const LeadProfileModal: React.FC<LeadProfileModalProps> = ({
   const handleRegenerateOutreach = async () => {
     setIsGenerating(true);
     try {
-      await onGenerateOutreach(lead.id, customOutreachPrompt);
+      await onGenerateOutreach(lead.id, customOutreachPrompt, selectedAgentId);
       setCustomOutreachPrompt('');
     } finally {
       setIsGenerating(false);
@@ -153,7 +158,7 @@ export const LeadProfileModal: React.FC<LeadProfileModalProps> = ({
   const handleReAudit = async () => {
     setIsReauditing(true);
     try {
-      await onReResearch(lead.id);
+      await onReResearch(lead.id, selectedAgentId);
     } finally {
       setIsReauditing(false);
     }
@@ -621,10 +626,25 @@ export const LeadProfileModal: React.FC<LeadProfileModalProps> = ({
 
               {/* Custom AI Regeneration */}
               <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
-                <span className="text-xs font-bold text-white flex items-center gap-2">
-                  <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-                  Regenerate with Custom AI Prompt
-                </span>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <span className="text-xs font-bold text-white flex items-center gap-2">
+                    <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+                    Regenerate with Specialized AI Agent Persona
+                  </span>
+                  {agents && agents.length > 0 && (
+                    <select
+                      value={selectedAgentId}
+                      onChange={(e) => setSelectedAgentId(e.target.value)}
+                      className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-white text-[11px] focus:outline-none focus:border-indigo-500"
+                    >
+                      {agents.map((a) => (
+                        <option key={a.id} value={a.id}>
+                          {a.name} ({a.model})
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </div>
                 <div className="flex gap-2">
                   <input
                     type="text"
