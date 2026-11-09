@@ -1,0 +1,6 @@
+{
+  "name": "LeadPilot AI",
+  "description": "AI-powered business lead generation, deep research, website assessment, and personalized outreach campaign platform for web development and digital marketing services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
